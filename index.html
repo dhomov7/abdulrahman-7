@@ -18,6 +18,18 @@
   h1{font-size:2rem;margin:20px 0 4px}
   .role{color:var(--accent);font-weight:600;margin:0}
   .bio{color:var(--muted);margin:16px 0 0;font-size:1.05rem}
+  header{padding:0}
+  .hero{position:relative;padding:24px 0 8px;text-align:center;overflow:hidden}
+  #code{position:absolute;inset:0;width:100%;height:100%;z-index:0;
+    -webkit-mask-image:radial-gradient(ellipse 75% 60% at 50% 40%,#000 30%,transparent 100%);
+    mask-image:radial-gradient(ellipse 75% 60% at 50% 40%,#000 30%,transparent 100%)}
+  .photo{position:relative;z-index:1;display:block;margin:0 auto;width:min(78%,380px);height:auto;
+    filter:grayscale(1) contrast(1.08);
+    -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 48%,#000 58%,transparent 100%);
+    mask-image:radial-gradient(ellipse 50% 50% at 50% 48%,#000 58%,transparent 100%)}
+  .intro{position:relative;z-index:1;margin-top:-8px}
+  .intro h1{margin:0 0 4px}
+  @media (prefers-reduced-motion:reduce){#code{display:none}}
   h2{font-size:1.2rem;margin:48px 0 16px}
   .apps{display:grid;gap:16px}
   @media(min-width:600px){.apps{grid-template-columns:1fr 1fr}}
@@ -39,11 +51,14 @@
 </head>
 <body>
 <main>
-  <header>
-    <div class="avatar" aria-hidden="true">ع</div>
-    <h1>عبدالرحمن</h1>
-    <p class="role">مدير منصة ومطوّر تطبيقات</p>
-    <p class="bio">أبني تطبيقات بسيطة وواضحة تخدم الناس في يومهم. أهتم بالتفاصيل الصغيرة التي تجعل التطبيق مريحًا وسهل الاستخدام.</p>
+  <header class="hero">
+    <canvas id="code" aria-hidden="true"></canvas>
+    <img class="photo" src="photo.webp" alt="صورة عبدالرحمن" width="800" height="920">
+    <div class="intro">
+      <h1>عبدالرحمن</h1>
+      <p class="role">مدير منصة ومطوّر تطبيقات</p>
+      <p class="bio">أبني تطبيقات بسيطة وواضحة تخدم الناس في يومهم. أهتم بالتفاصيل الصغيرة التي تجعل التطبيق مريحًا وسهل الاستخدام.</p>
+    </div>
   </header>
 
   <section>
@@ -89,6 +104,40 @@ document.getElementById('f').addEventListener('submit',async e=>{
     else st.textContent='تعذّر الإرسال، حاول لاحقًا.';
   }catch(_){st.textContent='تعذّر الإرسال، حاول لاحقًا.'}
 });
+</script>
+<script>
+(()=>{
+  const c=document.getElementById('code'),x=c.getContext('2d');
+  const words=['const','let','=>','{ }','</>','if','for','async','await','return','();','[]','&&','swift','git','0','1','#','//','func'];
+  const size=16;let cols,drops,W,H;
+  const gray=()=>matchMedia('(prefers-color-scheme:dark)').matches?'170,175,172':'110,114,112';
+  function fit(){
+    const r=c.getBoundingClientRect(),d=devicePixelRatio||1;
+    W=c.width=r.width*d;H=c.height=r.height*d;x.setTransform(d,0,0,d,0,0);
+    cols=Math.ceil(r.width/(size*2.2));drops=Array.from({length:cols},()=>Math.random()*-20);
+  }
+  fit();addEventListener('resize',fit);
+  let last=0;
+  function tick(t){
+    requestAnimationFrame(tick);
+    if(t-last<70)return;last=t;
+    const r=c.getBoundingClientRect();
+    x.clearRect(0,0,r.width,r.height);
+    x.font=size+'px ui-monospace,Menlo,monospace';
+    const col=gray();
+    for(let i=0;i<cols;i++){
+      for(let k=0;k<8;k++){
+        const y=(drops[i]-k)*size;
+        if(y<0||y>r.height)continue;
+        x.fillStyle='rgba('+col+','+(0.9-k*0.11)+')';
+        x.fillText(words[(i*7+Math.floor(drops[i])-k+40)%words.length],i*size*2.2,y);
+      }
+      drops[i]+=0.5+(i%3)*0.15;
+      if(drops[i]*size>r.height+8*size)drops[i]=Math.random()*-10;
+    }
+  }
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)requestAnimationFrame(tick);
+})();
 </script>
 </body>
 </html>
