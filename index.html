@@ -29,6 +29,11 @@
   .links{display:flex;gap:12px;flex-wrap:wrap}
   .links a{color:var(--ink);text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 20px}
   .links a:hover{border-color:var(--accent);color:var(--accent)}
+  form{display:grid;gap:12px}
+  input,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+  input:focus,textarea:focus{outline:2px solid var(--accent);border-color:transparent}
+  button{font:inherit;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:10px 24px;cursor:pointer;justify-self:start}
+  #st{margin:0;color:var(--muted)}
   footer{margin-top:56px;color:var(--muted);font-size:.9rem}
 </style>
 </head>
@@ -61,12 +66,29 @@
 
   <section>
     <h2>تواصل معي</h2>
-    <div class="links">
-      <a href="mailto:dhomov7@gmail.com">البريد</a>
-    </div>
+    <form id="f" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <input name="name" placeholder="الاسم" required>
+      <input name="email" type="email" placeholder="بريدك للرد عليك" required>
+      <textarea name="message" rows="4" placeholder="رسالتك" required></textarea>
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+      <button type="submit">إرسال</button>
+      <p id="st" role="status"></p>
+    </form>
   </section>
 
   <footer>© عبدالرحمن</footer>
 </main>
+<script>
+document.getElementById('f').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const f=e.target,st=document.getElementById('st');
+  st.textContent='جارٍ الإرسال…';
+  try{
+    const r=await fetch(f.action,{method:'POST',body:new FormData(f),headers:{Accept:'application/json'}});
+    if(r.ok){f.reset();st.textContent='وصلتني رسالتك، شكرًا لك.'}
+    else st.textContent='تعذّر الإرسال، حاول لاحقًا.';
+  }catch(_){st.textContent='تعذّر الإرسال، حاول لاحقًا.'}
+});
+</script>
 </body>
 </html>
