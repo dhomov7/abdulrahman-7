@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>عبدالرحمن</title>
+<meta name="description" content="تعريف شخصي مبسط مع عرض تطبيقي نوتة وأثر">
+<style>
+  :root{--bg:#faf8f4;--ink:#1d1d1f;--muted:#6b6b70;--card:#fff;--line:#e8e4dc;--accent:#2f6f5e}
+  @media (prefers-color-scheme:dark){
+    :root{--bg:#121413;--ink:#f2f1ed;--muted:#a3a39d;--card:#1b1e1c;--line:#2a2e2b;--accent:#6cc4a8}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic",system-ui,sans-serif;line-height:1.8}
+  main{max-width:720px;margin:0 auto;padding:0 16px 64px}
+  header{padding:72px 0 32px}
+  .avatar{width:84px;height:84px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:36px;font-weight:700}
+  h1{font-size:2rem;margin:20px 0 4px}
+  .role{color:var(--accent);font-weight:600;margin:0}
+  .bio{color:var(--muted);margin:16px 0 0;font-size:1.05rem}
+  h2{font-size:1.2rem;margin:48px 0 16px}
+  .apps{display:grid;gap:16px}
+  @media(min-width:600px){.apps{grid-template-columns:1fr 1fr}}
+  .app{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+  .icon{width:56px;height:56px;border-radius:14px;display:grid;place-items:center;font-size:26px;color:#fff;margin-bottom:12px}
+  .app h3{margin:0 0 4px;font-size:1.15rem}
+  .app p{margin:0;color:var(--muted)}
+  .soon{display:inline-block;margin-top:14px;font-size:.85rem;color:var(--accent);border:1px solid var(--line);border-radius:999px;padding:2px 12px}
+  .links{display:flex;gap:12px;flex-wrap:wrap}
+  .links a{color:var(--ink);text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 20px}
+  .links a:hover{border-color:var(--accent);color:var(--accent)}
+  footer{margin-top:56px;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="avatar" aria-hidden="true">ع</div>
+    <h1>عبدالرحمن</h1>
+    <p class="role">مدير منصة ومطوّر تطبيقات</p>
+    <p class="bio">أبني تطبيقات بسيطة وواضحة تخدم الناس في يومهم. أهتم بالتفاصيل الصغيرة التي تجعل التطبيق مريحًا وسهل الاستخدام.</p>
+  </header>
+
+  <section>
+    <h2>تطبيقاتي</h2>
+    <div class="apps">
+      <article class="app">
+        <div class="icon" style="background:#d9892b" aria-hidden="true">✎</div>
+        <h3>نوتة</h3>
+        <p>تطبيق ملاحظات سريع وهادئ، يساعدك على تدوين أفكارك وترتيبها في مكان واحد.</p>
+        <span class="soon">قريبًا على App Store</span>
+      </article>
+      <article class="app">
+        <div class="icon" style="background:#2f6f5e" aria-hidden="true">✦</div>
+        <h3>أثر</h3>
+        <p>تطبيق يساعدك على متابعة عاداتك وما تتركه كل يوم من أثر طيب.</p>
+        <span class="soon">قريبًا على App Store</span>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>تواصل معي</h2>
+    <div class="links">
+      <a href="mailto:dhomov7@gmail.com">البريد</a>
+    </div>
+  </section>
+
+  <footer>© عبدالرحمن</footer>
+</main>
+</body>
+</html>
