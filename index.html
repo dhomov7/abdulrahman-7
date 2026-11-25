@@ -4,7 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>عبدالرحمن</title>
-<meta name="description" content="تعريف شخصي مبسط مع عرض تطبيقي نوتة وأثر">
+<meta name="description" content="عبدالرحمن: مدير منصة ومطوّر تطبيقات. تعرّف على تطبيقي نوتة وأثر.">
+<meta name="theme-color" content="#faf8f4">
+<meta property="og:title" content="عبدالرحمن">
+<meta property="og:description" content="مدير منصة ومطوّر تطبيقات. تعرّف على تطبيقي نوتة وأثر.">
+<meta property="og:image" content="photo.webp">
+<meta property="og:locale" content="ar_SA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232f6f5e'/%3E%3Ctext x='32' y='44' font-size='36' text-anchor='middle' fill='white' font-family='sans-serif'%3E%D8%B9%3C/text%3E%3C/svg%3E">
 <style>
   :root{--bg:#faf8f4;--ink:#1d1d1f;--muted:#6b6b70;--card:#fff;--line:#e8e4dc;--accent:#2f6f5e}
   @media (prefers-color-scheme:dark){
@@ -30,6 +36,20 @@
   .intro{position:relative;z-index:1;margin-top:-8px}
   .intro h1{margin:0 0 4px}
   @media (prefers-reduced-motion:reduce){#code{display:none}}
+  html{scroll-behavior:smooth}
+  .nav{display:flex;gap:8px;justify-content:center;margin:20px 0 0;flex-wrap:wrap}
+  .nav a{color:var(--muted);text-decoration:none;font-size:.95rem;padding:4px 14px;border-radius:999px}
+  .nav a:hover{color:var(--accent);background:var(--card)}
+  .chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+  .chips span{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 16px;font-size:.92rem}
+  .app{transition:transform .25s,border-color .25s}
+  .app:hover{transform:translateY(-4px);border-color:var(--accent)}
+  .rv{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+  .rv.on{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.app{transition:none}html{scroll-behavior:auto}}
+  .steps{display:grid;gap:12px;padding:0;margin:0;list-style:none}
+  .steps li{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+  .steps b{color:var(--accent)}
   h2{font-size:1.2rem;margin:48px 0 16px}
   .apps{display:grid;gap:16px}
   @media(min-width:600px){.apps{grid-template-columns:1fr 1fr}}
@@ -58,10 +78,12 @@
       <h1>عبدالرحمن</h1>
       <p class="role">مدير منصة ومطوّر تطبيقات</p>
       <p class="bio">أبني تطبيقات بسيطة وواضحة تخدم الناس في يومهم. أهتم بالتفاصيل الصغيرة التي تجعل التطبيق مريحًا وسهل الاستخدام.</p>
+      <div class="chips"><span>تطبيقات آيفون</span><span>إدارة المنصات</span><span>واجهات عربية</span></div>
+      <nav class="nav"><a href="#apps">تطبيقاتي</a><a href="#how">كيف أعمل</a><a href="#contact">تواصل</a></nav>
     </div>
   </header>
 
-  <section>
+  <section id="apps" class="rv">
     <h2>تطبيقاتي</h2>
     <div class="apps">
       <article class="app">
@@ -79,7 +101,16 @@
     </div>
   </section>
 
-  <section>
+  <section id="how" class="rv">
+    <h2>كيف أعمل</h2>
+    <ol class="steps">
+      <li><b>أبدأ بالفكرة:</b> مشكلة واضحة يعيشها الناس كل يوم.</li>
+      <li><b>أبني ببساطة:</b> أقل عدد من الأزرار، وأوضح عربي ممكن.</li>
+      <li><b>أجرّب قبل الإطلاق:</b> أختبر على أجهزة حقيقية قبل أن يصل أي تحديث إليك.</li>
+    </ol>
+  </section>
+
+  <section id="contact" class="rv">
     <h2>تواصل معي</h2>
     <form id="f" action="https://formspree.io/f/mwloaykn" method="POST">
       <input name="name" placeholder="الاسم" required>
@@ -137,6 +168,14 @@ document.getElementById('f').addEventListener('submit',async e=>{
     }
   }
   if(!matchMedia('(prefers-reduced-motion:reduce)').matches)requestAnimationFrame(tick);
+})();
+</script>
+<script>
+(()=>{
+  const els=document.querySelectorAll('.rv');
+  if(!('IntersectionObserver' in window)){els.forEach(e=>e.classList.add('on'));return}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12});
+  els.forEach(e=>io.observe(e));
 })();
 </script>
 </body>
